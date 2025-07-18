@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Financial Management</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f4f6f9;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .navbar {
+            background: #343a40;
+        }
+
+        .navbar-brand,
+        .nav-link {
+            color: #fff !important;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .required-star {
+            color: #dc3545;
+            margin-left: 2px;
+        }
+
+        .sidebar-balance {
+            min-width: 260px;
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .sidebar-box {
+            background: #e7f0fa;
+            border-radius: 6px;
+            padding: 12px 10px;
+            margin-bottom: 10px;
+        }
+
+        .input-group-text {
+            font-size: 0.98rem;
+        }
+
+        .fw-bold {
+            font-weight: 600 !important;
+        }
+
+        .form-switch .form-check-input {
+            width: 2.2em;
+            height: 1.3em;
+        }
+
+        .save-btn {
+            min-width: 110px;
+        }
+
+        @media (max-width: 991px) {
+            .sidebar-balance {
+                margin-top: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">FinanceApp</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Liabilities</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'receivables' %}">Receivables</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'bank_transaction' %}">Transactions</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid my-4">
+        <div class="row">
+            <!-- Main Entry Form -->
+            <div class="col-lg-9 mb-4">
+                <div class="card p-4">
+                    <h4 class="mb-4 fw-bold">Bank Transaction Entry</h4>
+                    <form id="bankTransactionForm" autocomplete="off">
+                        <div class="row g-3">
+                            <!-- FYear, Date, Company, Bank, Account, Type -->
+                            <div class="col-md-2">
+                                <label class="form-label">Fyear <span class="required-star">*</span></label>
+                                <select class="form-select" id="Fyear">
+                                    <option value="2025-2026">2025-2026</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Transaction Date <span class="required-star">*</span></label>
+                                <input type="date" class="form-control" id="TransactionDate" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Company Name <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="CompanyName">
+                                        <option value="">Select Company</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">CompBank Name <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="CompBankName">
+                                        <option value="">Select Bank</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Account No</label>
+                                <input type="text" class="form-control" id="AccountNo" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Account Balance</label>
+                                <input type="text" class="form-control" id="AccountBalance" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Transaction Type <span class="required-star">*</span></label>
+                                <select class="form-select" id="TransactionType" required>
+                                    <option value="Debit">Debit</option>
+                                    <option value="Credit">Credit</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Mode Of Payment <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="ModeOfPayment" required>
+                                        <option value="Online" selected>Online</option>
+                                        <option value="ATM">ATM</option>
+                                        <option value="Cheque">Cheque</option>
+                                        <option value="Cash">Cash</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Transaction Desc <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="TransactionDesc" required>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Creditor/Debitor <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="CreditorDebitor" required>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Bank Name <span class="required-star">*</span></label>
+                                <div class="input-group">
+                                    <select class="form-select" id="BankName" required>
+                                        <option value="">Select</option>
+                                    </select>
+                                    <button class="btn btn-outline-primary" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Account Title</label>
+                                <input type="text" class="form-control" id="AccountTitle" readonly>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label">Creditor/Debitor Account No</label>
+                                <input type="text" class="form-control" id="CreditorDebitorAccountNo" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">Transaction No / Cheque No</label>
+                                <input type="text" class="form-control" id="TransactionNo">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Transaction Remarks</label>
+                                <input type="text" class="form-control" id="TransactionRemarks">
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center">
+                                <div>
+                                    <label class="form-label">Is Active?</label>
+                                    <div class="form-check form-switch mt-1">
+                                        <input class="form-check-input" type="checkbox" id="IsActive" checked>
+                                        <label class="form-check-label" for="IsActive">Active</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 d-flex gap-2">
+                            <button type="submit" class="btn btn-success save-btn">SaveB</button>
+                            <button type="button" class="btn btn-warning text-white" id="btnEdit">Edit</button>
+                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <!-- Sidebar Summary -->
+            <div class="col-lg-3 sidebar-balance">
+                <div class="sidebar-box mb-3">
+                    <div class="sidebar-title">Current Balance (All Banks, Both Companies)</div>
+                    <div id="currentBalanceAllBanks" class="fw-bold fs-5">--</div>
+                </div>
+                <div class="sidebar-box">
+                    <div class="sidebar-title">Current Balance (Single Company, All Banks)</div>
+                    <div id="currentBalanceSingleCompany" class="fw-bold fs-5">--</div>
+                </div>
+            </div>
+        </div>
+        <!-- Transactions Table -->
+        <div class="card mt-4 p-3">
+            <h5 class="fw-bold mb-3">All Transactions</h5>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="transactionsTable">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>FYear</th>
+                            <th>Date</th>
+                            <th>Company</th>
+                            <th>Bank</th>
+                            <th>Acc#</th>
+                            <th>Type</th>
+                            <th>Mode</th>
+                            <th>Description</th>
+                            <th>Credit/Debit</th>
+                            <th>Bank Name</th>
+                            <th>Account Title</th>
+                            <th>Creditor/ Debitor Acc#</th>
+                            <th>Trx No</th>
+                            <th>Remarks</th>
+                            <th>Active</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Transactions will appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+- Always format code with Black/PEP8.
+- Use Python type hints on all public functions and methods.
+- Prefer DRF’s ModelViewSet + DefaultRouter over manual URL patterns.
+- Declare and use DRF Serializers for all input/output validation.
+- Write or update unit tests (pytest/django) for every view, serializer, and model.
+- Favor descriptive names (e.g. `customer_orders` vs `co`).
+- Keep methods under 50 lines; extract reusable logic into services/helpers.
+- Guard against common OWASP issues (e.g. validate inputs, avoid eval()).
+- Return consistent JSON: always wrap lists and objects in named keys.
+- Include simple docstrings on classes and non-trivial methods only.
